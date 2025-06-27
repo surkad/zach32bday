@@ -36,14 +36,7 @@
             from { opacity: 0.05; }
             to { opacity: 0.15; }
         }
-        .llm-button {
-            background-image: linear-gradient(to right, #6EE7B7 0%, #3B82F6 100%);
-            transition: all 0.3s ease;
-        }
-        .llm-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
-        }
+        /* No specific .llm-button style needed anymore */
     </style>
 </head>
 <body>
@@ -101,20 +94,6 @@
                 Your presence is required to complete this festive algorithm and ensure maximum fun!
             </p>
 
-            <!-- LLM Feature Section -->
-            <div class="bg-gray-800 p-6 rounded-xl mb-8 shadow-inner border border-gray-700">
-                <h3 class="text-xl md:text-2xl font-bold text-yellow-300 mb-4 nerdy-heading">
-                    Need a Nerdy Wish?
-                </h3>
-                <button id="generateWishBtn" class="llm-button text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 ease-in-out">
-                    ✨ Generate Nerdy Birthday Wish ✨
-                </button>
-                <div id="wishOutput" class="mt-6 text-gray-200 text-lg leading-relaxed text-left p-4 bg-gray-700 rounded-lg hidden">
-                    <!-- Generated wish will appear here -->
-                    <p class="text-gray-400 italic">Generating...</p>
-                </div>
-            </div>
-
             <p class="nerdy-heading text-2xl font-semibold text-purple-400">
                 Processing fun... see you there!
             </p>
@@ -125,60 +104,6 @@
             </p>
         </div>
     </div>
-
-    <script>
-        document.getElementById('generateWishBtn').addEventListener('click', async () => {
-            const wishOutput = document.getElementById('wishOutput');
-            wishOutput.classList.remove('hidden');
-            wishOutput.innerHTML = '<p class="text-gray-400 italic">Generating...</p>'; // Show loading
-
-            console.log('Attempting to generate nerdy birthday wish...');
-
-            try {
-                // Construct the prompt for the LLM
-                const prompt = "Generate a short, nerdy, and fun birthday greeting for Zach, who is turning 32 (a power of 2). Incorporate terms like 'binary', 'byte-sized', 'algorithm', 'system upgrade', 'debug', 'compile', 'processor', 'data', or similar tech/math concepts.";
-
-                let chatHistory = [];
-                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-
-                const payload = { contents: chatHistory };
-                const apiKey = ""; // Canvas will automatically provide the API key at runtime
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-04-17:generateContent?key=${apiKey}`;
-
-                console.log('Sending request to Gemini API...');
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                console.log('Response received. Status:', response.status);
-
-                if (!response.ok) {
-                    const errorData = await response.text();
-                    console.error('API response not OK:', response.status, response.statusText, errorData);
-                    wishOutput.innerHTML = `<p class="text-red-400">Error: API responded with status ${response.status}. See console for details.</p>`;
-                    return;
-                }
-
-                const result = await response.json();
-                console.log('API response parsed:', result);
-
-                if (result.candidates && result.candidates.length > 0 &&
-                    result.candidates[0].content && result.candidates[0].content.parts &&
-                    result.candidates[0].content.parts.length > 0) {
-                    const text = result.candidates[0].content.parts[0].text;
-                    wishOutput.innerHTML = `<p>${text}</p>`; // Display the generated wish
-                    console.log('Birthday wish generated successfully!');
-                } else {
-                    wishOutput.innerHTML = '<p class="text-red-400">Error: Could not generate wish. Unexpected API response structure.</p>';
-                    console.error('Unexpected API response structure:', result);
-                }
-            } catch (error) {
-                wishOutput.innerHTML = '<p class="text-red-400">Error: Failed to connect to the wish generator. Check console for details.</p>';
-                console.error('Error generating wish:', error);
-            }
-        });
-    </script>
+    <!-- The JavaScript related to the Gemini feature has been removed -->
 </body>
 </html>
