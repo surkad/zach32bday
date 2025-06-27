@@ -50,7 +50,8 @@
     <div class="relative bg-gray-900 p-8 md:p-12 lg:p-16 rounded-2xl shadow-2xl max-w-2xl w-full text-center border-b-4 border-t-4 border-teal-500 overflow-hidden">
         <!-- More prominent binary-style background pattern -->
         <div class="absolute inset-0 opacity-10 pointer-events-none z-0">
-            <svg class="w-full h-full" viewBox="0 0 100 100" xmlns="http="http://www.w3.org/2000/svg" fill="#333">
+            <!-- Corrected xmlns attribute in SVG -->
+            <svg class="w-full h-full" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="#333">
                 <!-- Binary grid pattern -->
                 <g class="animated-bg-dots">
                     <!-- Row 1 -->
@@ -69,7 +70,8 @@
 
 
         <div class="relative z-10">
-            <h1 class="nerdy-heading text-4xl md:text-5xl lg:text-6xl font-bold text-cyan-400 mb-6 tracking-tighter">
+            <!-- Adjusted font size for better fit of .EXE -->
+            <h1 class="nerdy-heading text-4xl md:text-5xl lg:text-5xl font-bold text-cyan-400 mb-6 tracking-tighter">
                 <span class="text-white">INITIATING</span> <span class="text-red-400">BIRTHDAY.EXE</span> FOR ZACH!
             </h1>
 
@@ -130,6 +132,8 @@
             wishOutput.classList.remove('hidden');
             wishOutput.innerHTML = '<p class="text-gray-400 italic">Generating...</p>'; // Show loading
 
+            console.log('Attempting to generate nerdy birthday wish...');
+
             try {
                 // Construct the prompt for the LLM
                 const prompt = "Generate a short, nerdy, and fun birthday greeting for Zach, who is turning 32 (a power of 2). Incorporate terms like 'binary', 'byte-sized', 'algorithm', 'system upgrade', 'debug', 'compile', 'processor', 'data', or similar tech/math concepts.";
@@ -141,21 +145,33 @@
                 const apiKey = ""; // Canvas will automatically provide the API key at runtime
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-04-17:generateContent?key=${apiKey}`;
 
+                console.log('Sending request to Gemini API...');
                 const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
 
+                console.log('Response received. Status:', response.status);
+
+                if (!response.ok) {
+                    const errorData = await response.text();
+                    console.error('API response not OK:', response.status, response.statusText, errorData);
+                    wishOutput.innerHTML = `<p class="text-red-400">Error: API responded with status ${response.status}. See console for details.</p>`;
+                    return;
+                }
+
                 const result = await response.json();
+                console.log('API response parsed:', result);
 
                 if (result.candidates && result.candidates.length > 0 &&
                     result.candidates[0].content && result.candidates[0].content.parts &&
                     result.candidates[0].content.parts.length > 0) {
                     const text = result.candidates[0].content.parts[0].text;
                     wishOutput.innerHTML = `<p>${text}</p>`; // Display the generated wish
+                    console.log('Birthday wish generated successfully!');
                 } else {
-                    wishOutput.innerHTML = '<p class="text-red-400">Error: Could not generate wish. Please try again.</p>';
+                    wishOutput.innerHTML = '<p class="text-red-400">Error: Could not generate wish. Unexpected API response structure.</p>';
                     console.error('Unexpected API response structure:', result);
                 }
             } catch (error) {
