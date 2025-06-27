@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zach's Binary Birthday Bash!</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter for body, and a more techy font for headlines if available -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212; /* Even darker background */
+            color: #e2e8f0; /* Light text */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+        .nerdy-heading {
+            font-family: 'Press Start 2P', cursive; /* A pixelated, techy font */
+            text-shadow: 0 0 8px rgba(0,255,255,0.7), 0 0 15px rgba(0,255,255,0.4); /* Neon glow */
+        }
+        .binary-text {
+            color: #00ff00; /* Neon green for binary */
+            font-family: 'Press Start 2P', cursive;
+            text-shadow: 0 0 5px rgba(0,255,0,0.7);
+        }
+        .animated-bg-dots {
+            animation: pulse-dots 3s infinite alternate;
+        }
+        @keyframes pulse-dots {
+            from { opacity: 0.05; }
+            to { opacity: 0.15; }
+        }
+        .llm-button {
+            background-image: linear-gradient(to right, #6EE7B7 0%, #3B82F6 100%);
+            transition: all 0.3s ease;
+        }
+        .llm-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="relative bg-gray-900 p-8 md:p-12 lg:p-16 rounded-2xl shadow-2xl max-w-2xl w-full text-center border-b-4 border-t-4 border-teal-500 overflow-hidden">
+        <!-- More prominent binary-style background pattern -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none z-0">
+            <svg class="w-full h-full" viewBox="0 0 100 100" xmlns="http="http://www.w3.org/2000/svg" fill="#333">
+                <!-- Binary grid pattern -->
+                <g class="animated-bg-dots">
+                    <!-- Row 1 -->
+                    <text x="5" y="10" font-size="6" fill="currentColor">010101010101</text>
+                    <text x="5" y="20" font-size="6" fill="currentColor">101010101010</text>
+                    <text x="5" y="30" font-size="6" fill="currentColor">010101010101</text>
+                    <text x="5" y="40" font-size="6" fill="currentColor">101010101010</text>
+                    <text x="5" y="50" font-size="6" fill="currentColor">010101010101</text>
+                    <text x="5" y="60" font-size="6" fill="currentColor">101010101010</text>
+                    <text x="5" y="70" font-size="6" fill="currentColor">010101010101</text>
+                    <text x="5" y="80" font-size="6" fill="currentColor">101010101010</text>
+                    <text x="5" y="90" font-size="6" fill="currentColor">010101010101</text>
+                </g>
+            </svg>
+        </div>
+
+
+        <div class="relative z-10">
+            <h1 class="nerdy-heading text-4xl md:text-5xl lg:text-6xl font-bold text-cyan-400 mb-6 tracking-tighter">
+                <span class="text-white">INITIATING</span> <span class="text-red-400">BIRTHDAY.EXE</span> FOR ZACH!
+            </h1>
+
+            <p class="text-lg md:text-xl text-gray-300 mb-6 leading-relaxed">
+                Prepare for a system upgrade as we celebrate Zach reaching a truly significant <span class="font-bold text-teal-400">Power of 2</span> milestone:
+                <br>
+                <span class="text-5xl md:text-6xl lg:text-7xl font-extrabold block my-4 binary-text">32<sub>DEC</sub> (100000<sub>BIN</sub>)</span>
+            </p>
+
+            <p class="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed">
+                Join us for a byte-sized lunch to decode another year of awesomeness!
+            </p>
+
+            <div class="bg-gray-800 p-6 rounded-xl mb-8 shadow-inner border border-gray-700">
+                <div class="mb-4">
+                    <p class="text-gray-400 text-sm uppercase font-semibold">Date_Time_Stamp:</p>
+                    <p class="text-xl md:text-2xl font-bold text-white">Saturday, July 27th, 2025 @ 13:00 HRS</p>
+                </div>
+                <div class="mb-4">
+                    <p class="text-gray-400 text-sm uppercase font-semibold">Location_Coordinates:</p>
+                    <p class="text-xl md:text-2xl font-bold text-white">Spicelife Indian Fare</p>
+                    <p class="text-md md:text-lg text-gray-300">128 Ellington Blvd, Gaithersburg, MD 20878</p>
+                </div>
+            </div>
+
+            <p class="text-lg md:text-xl text-gray-300 mb-6 leading-relaxed">
+                Your presence is required to complete this festive algorithm and ensure maximum fun!
+            </p>
+
+            <!-- LLM Feature Section -->
+            <div class="bg-gray-800 p-6 rounded-xl mb-8 shadow-inner border border-gray-700">
+                <h3 class="text-xl md:text-2xl font-bold text-yellow-300 mb-4 nerdy-heading">
+                    Need a Nerdy Wish?
+                </h3>
+                <button id="generateWishBtn" class="llm-button text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 ease-in-out">
+                    ✨ Generate Nerdy Birthday Wish ✨
+                </button>
+                <div id="wishOutput" class="mt-6 text-gray-200 text-lg leading-relaxed text-left p-4 bg-gray-700 rounded-lg hidden">
+                    <!-- Generated wish will appear here -->
+                    <p class="text-gray-400 italic">Generating...</p>
+                </div>
+            </div>
+
+            <p class="nerdy-heading text-2xl font-semibold text-purple-400">
+                Processing fun... see you there!
+            </p>
+
+            <p class="mt-8 text-gray-400 text-lg">
+                &lt;End_Transmission&gt;<br>
+                Surbhi & Zach
+            </p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('generateWishBtn').addEventListener('click', async () => {
+            const wishOutput = document.getElementById('wishOutput');
+            wishOutput.classList.remove('hidden');
+            wishOutput.innerHTML = '<p class="text-gray-400 italic">Generating...</p>'; // Show loading
+
+            try {
+                // Construct the prompt for the LLM
+                const prompt = "Generate a short, nerdy, and fun birthday greeting for Zach, who is turning 32 (a power of 2). Incorporate terms like 'binary', 'byte-sized', 'algorithm', 'system upgrade', 'debug', 'compile', 'processor', 'data', or similar tech/math concepts.";
+
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+
+                const payload = { contents: chatHistory };
+                const apiKey = ""; // Canvas will automatically provide the API key at runtime
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-04-17:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const text = result.candidates[0].content.parts[0].text;
+                    wishOutput.innerHTML = `<p>${text}</p>`; // Display the generated wish
+                } else {
+                    wishOutput.innerHTML = '<p class="text-red-400">Error: Could not generate wish. Please try again.</p>';
+                    console.error('Unexpected API response structure:', result);
+                }
+            } catch (error) {
+                wishOutput.innerHTML = '<p class="text-red-400">Error: Failed to connect to the wish generator. Check console for details.</p>';
+                console.error('Error generating wish:', error);
+            }
+        });
+    </script>
+</body>
+</html>
